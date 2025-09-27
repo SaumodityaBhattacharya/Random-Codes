@@ -1,34 +1,41 @@
-
-#include <iostream>
-#include<cmath>
+#include<iostream>
+#include<string>
 using namespace std;
-int area(int a,int b, int c, int s){
-    int H;
-    H=sqrt(s*(s-a)*(s-b)*(s-c));
-    return H;
+
+bool isValid(string s) {
+    bool hasUpper = false;
+    bool hasLower = false;
+    bool hasDigit = false;
+    bool hasSpecial = false;
+    string specialChars = "@#$ _";
+    if (specialChars.find(s[0]) != string::npos || specialChars.find(s[s.length() - 1]) != string::npos) {
+        return false;
+    }
+
+    for (char c : s) {
+        if (isupper(c)) hasUpper = true;
+        else if (islower(c)) hasLower = true;
+        else if (isdigit(c)) hasDigit = true;
+        else if (specialChars.find(c) != string::npos) hasSpecial = true;
+    }
+
+    return hasUpper && hasLower && hasDigit && hasSpecial;
 }
+
 int main() {
-    int arr[3];
-    int sum=0;
-    for(int i=0;i<3;i++){
-        cin>>arr[i];
-        sum=sum+arr[i];
+    string password;
+    getline(cin, password);
+    int s = password.length();
+
+    if (!isValid(password)) {
+        cout << password << " is not acceptable";
     }
-    
-    if(arr[0]+arr[1]>arr[2]){
-        cout<<"A triangle is possible:"<<endl;
-        cout<<area(arr[0],arr[1],arr[2],sum/2);
+    else if (s >= 8 && s < 12) {
+        cout << password << " is moderate";
     }
-    else if(arr[1]+arr[2]>arr[0]){
-        cout<<"A triangle is possible:"<<endl;
-        cout<<area(arr[0],arr[1],arr[2],sum/2);
+    else {
+        cout << password << " is good";
     }
-    else if(arr[0]+arr[2]>arr[1]){
-        cout<<"A triangle is possible:"<<endl;
-        cout<<area(arr[0],arr[1],arr[2],sum/2);
-    }
-    else{
-        cout<<"Triangle with this measurements is not possible";
-    }
+
     return 0;
 }
