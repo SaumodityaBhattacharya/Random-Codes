@@ -18,6 +18,15 @@ public class peak {
                 left = mid + 1;
             }
         }
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] < arr[mid + 1]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        System.out.println("The crest of the array is: " +arr[left]);
         System.out.println("The peak of the array is: " + arr[left]);
         sc.close();
     }
